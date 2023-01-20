@@ -1,11 +1,12 @@
+import { Header } from "./components/header";
 import "./styles/global.css";
 
-function App() {
+export function App() {
   return (
-    <>
-      <h1 className="bg-purple-500 rounded-sm w-8 h-8">Hello World</h1>
-    </>
+    <div className="w-screen h-screen flex justify-center items-center">
+      <div className="w-full max-w-5xl px-6 flex flex-col gap-16">
+        <Header />
+      </div>
+    </div>
   );
 }
-
-export default App;

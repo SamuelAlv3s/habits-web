@@ -2,6 +2,7 @@ import { Check } from "phosphor-react";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { FormEvent } from "react";
 import { useState } from "react";
+import { api } from "../lib/axios";
 
 const availableWeekDays = [
   "Domingo",
@@ -19,8 +20,20 @@ export function NewHabitForm() {
 
   function createNewHabit(event: FormEvent) {
     event.preventDefault();
-    console.log(title);
-    console.log(weekDays);
+
+    if (!title || weekDays.length === 0) return;
+
+    api
+      .post("/habits", {
+        title,
+        weekDays,
+      })
+      .then((response) => {
+        console.log(response.data);
+
+        setTitle("");
+        setWeekDays([]);
+      });
   }
 
   function handleToggleWeekDay(day: number) {
@@ -62,6 +75,7 @@ export function NewHabitForm() {
           return (
             <Checkbox.Root
               key={day}
+              checked={weekDays.includes(index)}
               className="flex items-center gap-2 group"
               onCheckedChange={() => handleToggleWeekDay(index)}
             >
